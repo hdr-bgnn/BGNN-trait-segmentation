@@ -1,4 +1,5 @@
 # BGNN-trait-segmentation
+--------------------------
 
 PyTorch implementation of Fish trait segmentation model.
 
