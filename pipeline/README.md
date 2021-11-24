@@ -2,6 +2,10 @@
 --------------------------
 This folder contains the code to run the Fish trait segmentation model given any input fish image.
 
+# Image Quality data
+--------------------
+https://bgnn.tulane.edu/hdrweb/hdr/imagemetadata/
+
 ### Requirements:
 ------------------
 - Python (>=3.6)
