@@ -1,0 +1,18 @@
+BootStrap: localimage
+From: /home/thibault/Documents/Project/BGNN-trait-segmentation/Segment_mini_dev/smp_env_v2.img
+
+%setup
+  mkdir -p ${SINGULARITY_ROOTFS}/pipeline
+
+%post
+  chmod +x /pipeline/scripts/segmentation_main.py
+  echo 'export PATH=$PATH:/pipeline/scripts' >> $SINGULARITY_ENVIRONMENT
+  
+  /home/user/miniconda/bin/gdown -O /pipeline/scripts/saved_models/ https://drive.google.com/uc?id=1HBSGXbWw5Vorj82buF-gCi6S2DpF4mFL
+  
+%files
+  scripts/ /pipeline/
+  segmentation_main.py /pipeline/scripts/
+
+%labels
+MAINTAINER tabarin@battelleecology.org

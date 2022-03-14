@@ -1,0 +1,42 @@
+Setup environment for trait-segmentation-minimum
+trait-seg-mini
+
+conda create -n trait_mini python=3.8
+pip install numpy pillow
+pip install matplotlib
+pip install segmentation_models_pytorch
+
+python segmentation_main.py INHS_FISH_79829_cropped.jpg seg.png
+
+
+conda env export > environment.yml
+
+https://repo.anaconda.com/miniconda/Miniconda-3.8.3-Linux-x86_64.sh
+
+
+Create the Dockerfile
+I provide a template based on anibali/pytorch:1.10.0-nocuda
+for which I change the miniconda py39 to py38
+
+Build the docker image
+docker build -t smp:tb .
+
+Test it 
+docker run -it smp:tb bash
+-> python segmentation_main.py INHS_FISH_79829_cropped.jpg result_segment.png
+-> ls # youshould see result_segment.png
+-> exit # every thing disappear
+
+Create singularity image from docker image (on your local host)
+
+docker images # tocheck the image existence, name=smp and tag=tb
+sudo singularity build trait_seg_mini.sif docker-daemon:name:tag
+
+Test it
+singularity shell trait_seg_mini.sif 
+-> python segmentation_main.py INHS_FISH_79829_cropped.jpg result_segment.png
+-> exit # result_segment.png should be still on your local host in pwd 
+ls # should display result_segment.png
+
+Singularity image smp_env_tb.sif is is an environment for segmentation_models_pytorch.
+It contained every thing necessary to execute segmentation_main.py which located outside the container
