@@ -32,35 +32,64 @@ pip install segmentation_models_pytorch
 ## Create conda environment using .yml file 
 ```conda create -n seg_min -f env_segment_mini.yml```
 
-# 3- Test and Usage
+# 3- Download model weights
+
+    you can dowonload the model using
+       ```
+       cd BGNN-trait-segmentation/Segment_mini_dev/scripts
+       chmod +x load_model.sh
+       ./load_model.sh
+       ```
+    if this doesn't work, do it manually. Copy/past in your browser  https://drive.google.com/uc?id=1HBSGXbWw5Vorj82buF-gCi6S2DpF4mFL
+    Copy the file "Trained_model_SM.pth" to BGNN-trait-segmentation/Segment_mini_dev/scripts/saved_models
+    
+# 4- Test and Usage
+
+## Clone the repository on you system and checkout the segment_min branch
+
+```
+git clone 
+git checkout segment_mini
+```
+
 
 ## activate your environment
 ```conda activate seg_min```
 
 ## Test 
 
-```python segmentation_main.py INHS_FISH_79829_cropped.jpg seg.png```
+```
+cd BGNN-trait-segmentation/Segment_mini_dev/
+python scripts/segmentation_main.py image_test/INHS_FISH_79829_cropped.jpg seg.png
+```
 
 ## Usage 
 
 Same as for Test
 
+```
+cd BGNN-trait-segmentation/Segment_mini_dev/
+python scripts/segmentation_main.py image/location/fish.jpg result/location/res.png
+```
 
 ## Export an environment of your own 
-For instance if you want to add some functionalities that required new package.
+For instance if you want to add some functionalities that required new packages.
+
 ```conda env export > environment.yml```
 
 
-# 4- Create the singularity image
+# 5- Create the singularity image
 
-This section describe steps use to create 2 types of containers : 
-    1. One that provides the environment to run segmentation_main.py from outisde the container using singularity. This is a good way to develop the code if you don't want to setup a conda enironment.
-    2. One to run trait segmentation (segmentation_main.py) inside the container. In this case everything is self-contained. Just run the container by itself.
+This section describe steps use to create 2 types of containers.
+
+1. One that provides the environment to run segmentation_main.py from outisde the container using singularity. This is a good way to develop the code if you don't want to setup a conda enironment.
+2. One to run trait segmentation (segmentation_main.py) inside the container. In this case everything is self-contained. Just run the container by itself.
 
 
 The image is available for download at 
 
-##  1. For detail on how to create continous to read more
+##  1. Create container for the environment only
+With this approach you have to execute and a script which is located outside the container.
 
 ### Create the Dockerfile that contained the environment
 
@@ -93,12 +122,14 @@ Back the host
 ls # should display result_segment.png
 ```
 
-Singularity image smp_env_v2.sif provide only the environment for segmentation_models_pytorch.
-It doesn't contain any code to run segmentation_main.py which located outside the container
+##  2. Create a container that runs segmentation from inside
+In the previous section we have create a singularity image smp_env_v2.sif provide only the environment for segmentation_models_pytorch.
+It doesn't contain any code to run segmentation_main.py which is located outside the container. This new container we will create, we will run every everything from inside and is completely protable.
 
-4- Create the container that contains everything
 
-cd Segment_mini_dev
+### Create the container that contains everything
+
+cd Segment_mini_dev/scripts
 chmod +x create_simg.sh
 ./create_simg.sh
 # it created a file segment_mini.sif
