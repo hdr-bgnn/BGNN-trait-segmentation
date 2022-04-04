@@ -9,7 +9,7 @@ Created on Tue Feb 22 08:56:12 2022
 #import os
 import numpy as np
 #import cv2
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from PIL import Image
 
 #from torch.utils.data import DataLoader
@@ -117,56 +117,56 @@ import segmentation_models_pytorch as smp
     
     
     
-def plot_double_image(image_1, image_2, title_1=None, title_2=None):
-    ''' This method plot two images side by side
-    '''
+# def plot_double_image(image_1, image_2, title_1=None, title_2=None):
+#     ''' This method plot two images side by side
+#     '''
     
-    plt.figure(figsize=(16, 5))
+#     plt.figure(figsize=(16, 5))
     
-    plt.subplot(1, 2, 1)
-    plt.xticks([])
-    plt.yticks([])
-    if title_1 != None:
-        plt.title(title_1)
-    plt.imshow(image_1)
+#     plt.subplot(1, 2, 1)
+#     plt.xticks([])
+#     plt.yticks([])
+#     if title_1 != None:
+#         plt.title(title_1)
+#     plt.imshow(image_1)
     
-    plt.subplot(1, 2, 2)
-    plt.xticks([])
-    plt.yticks([])
-    if title_2 != None:
-        plt.title(title_2)
-    plt.imshow(image_2)
-    plt.show()
+#     plt.subplot(1, 2, 2)
+#     plt.xticks([])
+#     plt.yticks([])
+#     if title_2 != None:
+#         plt.title(title_2)
+#     plt.imshow(image_2)
+#     plt.show()
     
-def plot_triple_image(image_1, image_2, image_3, 
-                      title_1=None, title_2=None, title_3=None):
-    ''' This method plot two images side by side
-    '''
+# def plot_triple_image(image_1, image_2, image_3, 
+#                       title_1=None, title_2=None, title_3=None):
+#     ''' This method plot two images side by side
+#     '''
     
-    plt.figure(figsize=(16, 8))
+#     plt.figure(figsize=(16, 8))
     
-    plt.subplot(1, 3, 1)
-    plt.xticks([])
-    plt.yticks([])
-    if title_1 != None:
-        plt.title(title_1)
-    plt.imshow(image_1)
+#     plt.subplot(1, 3, 1)
+#     plt.xticks([])
+#     plt.yticks([])
+#     if title_1 != None:
+#         plt.title(title_1)
+#     plt.imshow(image_1)
     
-    plt.subplot(1, 3, 2)
-    plt.xticks([])
-    plt.yticks([])
-    if title_2 != None:
-        plt.title(title_2)
-    plt.imshow(image_2)
-    plt.show()
+#     plt.subplot(1, 3, 2)
+#     plt.xticks([])
+#     plt.yticks([])
+#     if title_2 != None:
+#         plt.title(title_2)
+#     plt.imshow(image_2)
+#     plt.show()
     
-    plt.subplot(1, 3, 3)
-    plt.xticks([])
-    plt.yticks([])
-    if title_3 != None:
-        plt.title(title_3)
-    plt.imshow(image_3)
-    plt.show()
+#     plt.subplot(1, 3, 3)
+#     plt.xticks([])
+#     plt.yticks([])
+#     if title_3 != None:
+#         plt.title(title_3)
+#     plt.imshow(image_3)
+#     plt.show()
     
 def get_color_img(mask, normal=True):
     ''' mask shape -> (320, 800, 12) if normal=True
