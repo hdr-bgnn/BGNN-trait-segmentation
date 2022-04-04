@@ -129,8 +129,15 @@ It doesn't contain any code to run segmentation_main.py which is located outside
 
 ### Create the container that contains everything
 
+```
 cd Segment_mini_dev/scripts
 chmod +x create_simg.sh
 ./create_simg.sh
-# it created a file segment_mini.sif
+```
+It created a singularity image file (.sif) segment_mini.sif
 
+### Test and Usage
+
+```
+singularity exec segment_min.sif segmentation_main.py image_test/INHs...jpg result_segment.png
+```
