@@ -1,0 +1,9 @@
+If you need to downlaod manually the model weight execute the folliwing command
+
+cd ~/BGNN_Snakemake/Containers/Singularity_def_segment_trait/Scripts
+gdown -O saved_models/ https://drive.google.com/uc?id=1HBSGXbWw5Vorj82buF-gCi6S2DpF4mFL
+
+If this instruction send an error, follow this
+go to https://drive.google.com/uc?id=1HBSGXbWw5Vorj82buF-gCi6S2DpF4mFL
+downaload on your disk the file Trained_model_SM.pth
+copy the file Trained_model_SM.pth to BGNN_Snakemake/Containers/Singularity_def_segment_trait/Scripts/saved_models/
