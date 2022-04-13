@@ -85,17 +85,8 @@ def main(image_path, output_path):
     # Prediction
     pred_mask = Traits_prediction_one_image(image_preprocess)
 
-    # Get colored image
-    colored_image = sh.get_color_img(pred_mask, normal=False)
-    
-    # Resize with original ratio
-    original_height, original_width = img.size
-    
-    new_width = round(800/(original_height/original_width))
-    colored_image_resized = transforms.Resize((new_width,800))(colored_image)
-    
-    # Save the colored resized segmented image 
-    colored_image_resized.save(output_path)
+    # Save
+    sh.get_color_img(pred_mask, normal=False).save(output_path)
 
 if __name__ == '__main__':
 
