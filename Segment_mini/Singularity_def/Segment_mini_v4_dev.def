@@ -1,0 +1,44 @@
+BootStrap: docker
+From: thibault79t/smp_env:v2
+
+%setup
+  mkdir -p ${SINGULARITY_ROOTFS}/pipeline
+  mkdir -p ${SINGULARITY_ROOTFS}/pipeline/.cache/torch/hub/checkpoints
+
+%post
+  apt-get update
+  apt-get -y install wget
+
+  git clone --branch segment_mini https://github.com/hdr-bgnn/BGNN-trait-segmentation.git /pipeline/BGNN-trait-segmentation
+  cp /pipeline/BGNN-trait-segmentation/Segment_mini_dev/scripts/segmentation_main.py /pipeline/
+  cp /pipeline/BGNN-trait-segmentation/Segment_mini_dev/scripts/helper_mini.py /pipeline/
+  cp /pipeline/BGNN-trait-segmentation/Segment_mini_dev/scripts/load_pretrained_model.py /pipeline/
+  rm -r /pipeline/BGNN-trait-segmentation
+  echo 'export PATH=$PATH:/pipeline' >> $SINGULARITY_ENVIRONMENT
+  echo 'export  TORCH_HOME=/pipeline/.cache/torch/' >> $SINGULARITY_ENVIRONMENT
+  
+  chmod +x /pipeline/segmentation_main.py
+
+  # Download Maruf Model
+  /home/user/miniconda/bin/gdown -O /pipeline/saved_models/ https://drive.google.com/uc?id=1HBSGXbWw5Vorj82buF-gCi6S2DpF4mFL
+
+  # Downlaod pretrained Model, it should to build cache outside the container
+  /home/user/miniconda/bin/python /pipeline/load_pretrained_model.py
+   #wget -P /pipeline/.cache/torch/hub/checkpoints http://data.lip6.fr/cadene/pretrainedmodels/se_resnext50_32x4d-a260b3a4.pth
+
+
+#%files
+#  ../scripts/helper_mini.py /pipeline/
+#  ../scripts/segmentation_main.py /pipeline/
+
+%labels
+MAINTAINER tabarin@battelleecology.org
+version v0.2
+
+%help
+  This container runs segmentation_main.py developed by M. Maruf from virginia tech group for bgnn project.
+  Weights and training perform by M. Maruf
+  Refactoring for containarization by Thibault Tabarin from Battelle
+
+  Usage:
+  singularity exec Segment_mini_v3.sif segmentation_main.py <fish_image_cropped.jpg> <Segemented.png>

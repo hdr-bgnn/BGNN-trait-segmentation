@@ -128,6 +128,33 @@ def vizualize_trait_bbox (img, regions_trait):
 
     x0, y0 = regions_trait[0].centroid
     ax.plot(y0, x0, '.g', markersize=10)
+    
+def start_plot(img):
+    fig, ax = plt.subplots()
+    ax.imshow(img, cmap=plt.cm.gray)
+    
+    return fig, ax
+
+def vizualize_trait (trait, mask, fig, ax):
+    
+    _, regions_trait = get_morphology_one_trait(trait, mask, parameter=None)
+    minr, minc, maxr, maxc = regions_trait[0].bbox
+    bx = (minc, maxc, maxc, minc, minc)
+    by = (minr, minr, maxr, maxr, minr)
+    ax.plot(bx, by, '-b', linewidth=2.5)
+
+    x0, y0 = regions_trait[0].centroid
+    ax.plot(y0, x0, '.k', markersize=5)
+
+def vizualize_demo(image_path,traits = ["head","eye","caudal_fin"]):
+    
+    img = import_segmented_image(image_path)
+    mask = get_channels_mask(img, trait_color_dict)
+    fig, ax = start_plot(img)
+    
+    for trait in traits:
+        vizualize_trait (trait, mask, fig, ax)
+    
 
 def main(image_path, output_result, name=None):
 
