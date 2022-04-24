@@ -46,4 +46,3 @@ dependencies:
     - torchvision==0.11.3
     - tqdm==4.62.3
     - typing-extensions==4.1.1
-prefix: /home/thibault/anaconda3/envs/segment_mini
