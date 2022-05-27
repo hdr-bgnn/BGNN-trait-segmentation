@@ -6,6 +6,7 @@ import numpy as np
 from PIL import Image
 import torch
 from torchvision import transforms
+from torchvision.transforms import InterpolationMode
 import helper_mini as sh
 import warnings
 
@@ -13,7 +14,7 @@ warnings.filterwarnings("ignore")
 
 DEVICE = ('cuda:4' if torch.cuda.is_available() else 'cpu')
 model, preprocessing_fn, CLASSES = sh.load_pretrained_model()
-map_location=torch.device('cpu')
+map_location=torch.device(DEVICE)
 
 # Locate the file location to use absolute path
 root_file_path = os.path.dirname(__file__)
@@ -92,8 +93,7 @@ def main(image_path, output_path):
     original_height, original_width = img.size
     
     new_width = round(800/(original_height/original_width))
-    colored_image_resized = transforms.Resize((new_width,800))(colored_image)
-    
+    colored_image_resized = transforms.Resize((new_width,800),interpolation=InterpolationMode.NEAREST)(colored_image)
     # Save the colored resized segmented image 
     colored_image_resized.save(output_path)
 
