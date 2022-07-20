@@ -52,8 +52,9 @@ RUN wget -P /pipeline/.cache/torch/hub/checkpoints http://data.lip6.fr/cadene/pr
 
 # Setup pipeline specific scripts
 ENV PATH="/pipeline:${PATH}"
-ADD scripts/segmentation_main.py /pipeline/segmentation_main.py
-ADD scripts/helper_mini.py /pipeline/helper_mini.py
+ADD scripts/ /pipeline/
+#ADD scripts/segmentation_main.py /pipeline/segmentation_main.py
+#ADD scripts/helper_mini.py /pipeline/helper_mini.py
 
 # Set the default command to a usage statement
 CMD echo "Usage: segmentation_main.py <input_jpg_path> <output_png_path>"
