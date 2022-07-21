@@ -57,4 +57,8 @@ ADD scripts/ /pipeline/
 #ADD scripts/helper_mini.py /pipeline/helper_mini.py
 
 # Set the default command to a usage statement
-CMD echo "Usage: segmentation_main.py <input_jpg_path> <output_png_path>"
+CMD echo "Usage _no rescale_ : segmentation_main_no_rescale.py <input_jpg_path> <output_png_path>\n"\
+"Usage _rescale_ratio_ : segmentation_main_rescale_ratio.py <input_jpg_path> <output_png_path>\n"\
+"Usage _rescale_origin_ : segmentation_main_rescale_origin.py <input_jpg_path> <output_png_path>"
+         
+
