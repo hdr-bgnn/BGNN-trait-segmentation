@@ -48,12 +48,13 @@ ENV TORCH_HOME=/pipeline/.cache/torch/
 # Download Maruf Model
 RUN gdown -O /pipeline/saved_models/ https://drive.google.com/uc?id=1HBSGXbWw5Vorj82buF-gCi6S2DpF4mFL
 # Downlaod pretrained Model, it should to build cache outside the container
-RUN wget -P /pipeline/.cache/torch/hub/checkpoints http://data.lip6.fr/cadene/pretrainedmodels/se_resnext50_32x4d-a260b3a4.pth
+RUN wget -c --no-check-certificate -P /pipeline/.cache/torch/hub/checkpoints http://data.lip6.fr/cadene/pretrainedmodels/se_resnext50_32x4d-a260b3a4.pth
 
 # Setup pipeline specific scripts
 ENV PATH="/pipeline:${PATH}"
-ADD scripts/segmentation_main.py /pipeline/segmentation_main.py
-ADD scripts/helper_mini.py /pipeline/helper_mini.py
+ADD scripts/ /pipeline/
+#ADD scripts/segmentation_main.py /pipeline/segmentation_main.py
+#ADD scripts/helper_mini.py /pipeline/helper_mini.py
 
 # Set the default command to a usage statement
 CMD echo "Usage: segmentation_main.py <input_jpg_path> <output_png_path>"
