@@ -92,7 +92,7 @@ def main(image_path, output_path):
     # Resize with original ratio
     original_height, original_width = img.size
    
-    colored_image_resized = transforms.Resize((original_height, original_width),interpolation=InterpolationMode.NEAREST)(colored_image)
+    colored_image_resized = transforms.Resize((original_width, original_height),interpolation=InterpolationMode.NEAREST)(colored_image)
     # Save the colored resized segmented image 
     colored_image_resized.save(output_path)
 
