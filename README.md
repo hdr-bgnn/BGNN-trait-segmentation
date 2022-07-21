@@ -18,6 +18,23 @@ Trait list :
 + 'alt_fin_ray'
 + 'trunk'
 
+**Structure of the repo**
+
+## 1- Neural network for segmentation approach
+
+## 2- Training
+
+## 3- Training set annotation
+
+## 4- Prediction
+
+## 5- Input, output
+
+## 6- Rescaling
+
+## 7- Implicit/explicit code
+
+
 ### Requirements:
 ------------------
 - Python (>=3.6)
