@@ -3,7 +3,6 @@ name: Create and publish a Docker image
 on:
   release:
     types: [published]
-
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -36,6 +35,8 @@ jobs:
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: Segment_mini
+          build-args: |
+            DATAVERSE_API_TOKEN=${{ secrets.DATAVERSE_API_TOKEN }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

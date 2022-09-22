@@ -1,4 +1,5 @@
 FROM ubuntu:20.04
+ARG DATAVERSE_API_TOKEN
 
 # Label
 LABEL org.opencontainers.image.title="fish trait segmentation"
@@ -45,10 +46,16 @@ RUN curl -sLo ~/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-py38
 WORKDIR /pipeline
 ENV TORCH_HOME=/pipeline/.cache/torch/
 
-# Download Maruf Model
-RUN gdown -O /pipeline/saved_models/ https://drive.google.com/uc?id=1HBSGXbWw5Vorj82buF-gCi6S2DpF4mFL
-# Downlaod pretrained Model, it should to build cache outside the container
-RUN wget -c --no-check-certificate -P /pipeline/.cache/torch/hub/checkpoints http://data.lip6.fr/cadene/pretrainedmodels/se_resnext50_32x4d-a260b3a4.pth
+# Download Maruf Model from Imageomics Dataverse
+
+ENV DATAVERSE_URL=https://datacommons.tdai.osu.edu
+ADD scripts/dataverse_download.py /pipeline/dataverse_download.py
+
+# Download Trained_model_SM.pth
+RUN python /pipeline/dataverse_download.py ${DATAVERSE_URL} doi:10.5072/FK2/SWV0YL Trained_model_SM.pth saved_models/Trained_model_SM.pth
+
+# Download se_resnext50_32x4d-a260b3a4.pth (dependency of Trained_model_SM.pth)
+RUN python /pipeline/dataverse_download.py ${DATAVERSE_URL} doi:10.5072/FK2/CGWDW4 se_resnext50_32x4d-a260b3a4.pth .cache/torch/hub/checkpoints/se_resnext50_32x4d-a260b3a4.pth
 
 # Setup pipeline specific scripts
 ENV PATH="/pipeline:${PATH}"
