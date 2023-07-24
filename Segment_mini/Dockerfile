@@ -1,13 +1,10 @@
-FROM ghcr.io/imageomics/dataverse-access:0.0.3 as model_fetcher
-ARG DATAVERSE_API_TOKEN
-ENV DATAVERSE_URL=https://datacommons.tdai.osu.edu/
-ENV TRAINED_MODEL_DOI=doi:10.5072/FK2/SWV0YL
-ENV RESNEXT50_MODEL_DOI=doi:10.5072/FK2/CGWDW4
+FROM alpine/git:2.40.1 as model_fetcher
+ENV MODEL_REPO_URL=https://huggingface.co/imageomics/BGNN-trait-segmentation
 
 # Download model_final.pth
 RUN mkdir -p /model \
-    && dva download $TRAINED_MODEL_DOI /model \
-    && dva download $RESNEXT50_MODEL_DOI /model
+    && cd /model \
+    && git clone --depth=1 ${MODEL_REPO_URL}
 
 FROM ubuntu:20.04
 
@@ -56,10 +53,10 @@ RUN curl -sLo ~/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-py38
 WORKDIR /pipeline
 ENV TORCH_HOME=/pipeline/.cache/torch/
 
-COPY --from=model_fetcher /model/Trained_model_SM.pth \
+COPY --from=model_fetcher /model/BGNN-trait-segmentation/Trained_model_SM.pth \
                           /pipeline/saved_models/Trained_model_SM.pth
 
-COPY --from=model_fetcher /model/se_resnext50_32x4d-a260b3a4.pth \
+COPY --from=model_fetcher /model/BGNN-trait-segmentation/se_resnext50_32x4d-a260b3a4.pth \
                           /pipeline/.cache/torch/hub/checkpoints/se_resnext50_32x4d-a260b3a4.pth
 
 # Setup pipeline specific scripts
