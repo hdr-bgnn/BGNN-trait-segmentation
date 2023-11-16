@@ -1,0 +1,21 @@
+cff-version: 1.0.0
+date-released: "2022-09-22"
+authors:
+  - family-names: Maruf
+    given-names: "M."
+    orcid: "https://orcid.org/0000-0003-0637-1753"
+  - family-names: Karpatne
+    given-names: Anuj
+    orcid: "https://orcid.org/0000-0003-1647-3534"
+identifiers:
+  - description: "PyTorch implementation of Fish trait segmentation model. This segmentation model is based on pretrained model using the segementation models torch Then the model is fine tune on fish image in order to identify (segment) the different traits."
+    type: doi
+    value: 10.57967/hf/0832
+keywords:
+  - "imageomics"
+  - "image"
+  - "segmentation"
+license: MIT
+repository-code: "https://github.com/hdr-bgnn/BGNN-trait-segmentation"
+title: "BGNN trait segmentation"
+version: 0.0.6
