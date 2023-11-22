@@ -1,5 +1,6 @@
 cff-version: 1.0.0
 date-released: "2022-09-22"
+abstract: "PyTorch implementation of Fish trait segmentation model. This segmentation model is based on pretrained model using the segementation models torch Then the model is fine tune on fish image in order to identify (segment) the different traits."
 authors:
   - family-names: Maruf
     given-names: "M."
@@ -8,7 +9,7 @@ authors:
     given-names: Anuj
     orcid: "https://orcid.org/0000-0003-1647-3534"
 identifiers:
-  - description: "PyTorch implementation of Fish trait segmentation model. This segmentation model is based on pretrained model using the segementation models torch Then the model is fine tune on fish image in order to identify (segment) the different traits."
+  - description: "Snapshot of BGNN-trait-segmentation."
     type: doi
     value: 10.57967/hf/0832
 keywords:
